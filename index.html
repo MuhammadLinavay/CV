@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohammed Abduljabbar Mohammed - CV</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -360,6 +362,30 @@
             color: #6b7280;
         }
         
+        /* PDF Export Button */
+        .pdf-export-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2563eb;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            z-index: 1000;
+            transition: all 0.2s ease;
+        }
+        
+        .pdf-export-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+        
         /* Print styles - Hide everything except CV pages */
         @media print {
             @page {
@@ -412,84 +438,19 @@
                 print-color-adjust: exact !important;
             }
             
-            /* Completely hide instructions */
-            .instructions-box {
+            /* Hide export button */
+            .pdf-export-btn {
                 display: none !important;
                 visibility: hidden !important;
             }
         }
-        
-        /* Instructions */
-        .instructions-box {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #1f2937;
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            z-index: 1000;
-            max-width: 320px;
-            font-size: 14px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        
-        .instructions-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        
-        .instruction-step {
-            margin-bottom: 10px;
-            padding: 8px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-        }
-        
-        .instruction-step strong {
-            color: #fbbf24;
-        }
-        
-        .close-btn {
-            background: #2563eb;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
-    <!-- Instructions -->
-    <div class="instructions-box" id="instructions">
-        <div class="instructions-title">💡 Save as PDF</div>
-        <div class="instruction-step">
-            <strong>Step 1:</strong> Press Ctrl+P (Windows) or Cmd+P (Mac)
-        </div>
-        <div class="instruction-step">
-            <strong>Step 2:</strong> Select "Save as PDF" as destination
-        </div>
-        <div class="instruction-step">
-            <strong>Step 3:</strong> Choose A4 paper size
-        </div>
-        <div class="instruction-step">
-            <strong>Step 4:</strong> Set margins to "Minimum"
-        </div>
-        <div class="instruction-step">
-            <strong>Step 5:</strong> Enable "Background graphics"
-        </div>
-        <div class="instruction-step">
-            <strong>Step 6:</strong> Click "Save"
-        </div>
-        <button class="close-btn" onclick="document.getElementById('instructions').style.display='none'">
-            Got it!
-        </button>
-    </div>
+    <!-- PDF Export Button -->
+    <button class="pdf-export-btn" onclick="exportToPDF()">
+        📄 Export PDF
+    </button>
 
     <!-- Page 1 -->
     <div class="page">
@@ -503,8 +464,6 @@
                         <span class="badge">AI/ML Researcher</span>
                         <span class="badge">Full-Stack Developer</span>
                         <span class="badge">Network Specialist</span>
-                        <span class="badge">3 Publications</span>
-                        <span class="badge">76 Citations</span>
                     </div>
                 </div>
                 <div class="contact-section">
@@ -520,7 +479,7 @@
             <div class="section">
                 <h2 class="section-title">Professional Summary</h2>
                 <p class="summary-text">
-                    Accomplished IT professional with 8+ years of comprehensive experience in software development, network administration, and technical support. Founder and CEO of LinavaSoft, specializing in delivering innovative IT solutions including custom application development, web design, and network infrastructure services. Successfully developed and launched AloLabs+, a revolutionary healthcare application for professional home blood testing services. Published researcher with expertise in artificial intelligence, deep learning, and medical image processing, contributing 3 peer-reviewed papers with 76 citations. Graduated with distinction (93.83%) in Information Security, combining strong academic foundation with practical industry experience.
+                    Accomplished IT professional with 8+ years of comprehensive experience in software development, network administration, and technical support. Founder and CEO of LinavaSoft, specializing in delivering innovative IT solutions including custom application development, web design, and network infrastructure services. Successfully developed and launched AloLabs+, a revolutionary healthcare application for professional home blood testing services. Published researcher with expertise in artificial intelligence, deep learning, and medical image processing. Graduated with distinction (93.83%) in Information Security, combining strong academic foundation with practical industry experience.
                 </p>
             </div>
             
@@ -591,8 +550,8 @@
                             </div>
                             <div class="experience-details">
                                 <div class="detail-item">Conducted research in AI, deep learning, and information security</div>
-                                <div class="detail-item">Published 3 papers in IEEE conferences and peer-reviewed journals</div>
-                                <div class="detail-item">Achieved 76 citations for research contributions</div>
+                                <div class="detail-item">Published research papers in IEEE conferences and peer-reviewed journals</div>
+                                <div class="detail-item">Achieved notable citations for research contributions</div>
                                 <div class="detail-item">Mentored undergraduate students in computer science projects</div>
                             </div>
                         </div>
@@ -813,7 +772,7 @@
                         <div class="experience-details">
                             <div class="detail-item">Founded and scaled LinavaSoft IT Solutions company</div>
                             <div class="detail-item">Developed AloLabs+ healthcare app serving 1000+ users</div>
-                            <div class="detail-item">Published 3 research papers with 76 total citations</div>
+                            <div class="detail-item">Published research papers with significant citations</div>
                             <div class="detail-item">Graduated with distinction (93.83% grade average)</div>
                             <div class="detail-item">5+ years of continuous professional growth in IT sector</div>
                             <div class="detail-item">Successfully managed 20+ enterprise network deployments</div>
@@ -881,69 +840,73 @@
         </div>
     </div>
     
-    <!-- PDF Export Button (Note: Won't work in sandboxed environment) -->
-    <button class="pdf-export-btn" onclick="exportToPDF()" style="position: fixed; bottom: 30px; right: 30px; background: #2563eb; color: white; padding: 15px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); z-index: 1000;">
-        📄 Export PDF
-    </button>
-
-    <!-- Instructions -->
-    <div class="instructions-box" id="instructions">
-        <div class="instructions-title">PDF Export Information</div>
-        <div class="instruction-step">
-            <strong>Current Environment:</strong> The PDF export button cannot work in this sandboxed environment due to security restrictions.
-        </div>
-        <div class="instruction-step">
-            <strong>Alternative:</strong> Use Ctrl+P (or Cmd+P) and select "Save as PDF" for the same result.
-        </div>
-        <div class="instruction-step">
-            <strong>For Developers:</strong> In a regular website, you would need to include jsPDF library for the export button to work.
-        </div>
-        <button class="close-btn" onclick="document.getElementById('instructions').style.display='none'">
-            Got it!
-        </button>
-    </div>
-
     <script>
-        // This function would work in a regular website with jsPDF library
-        function exportToPDF() {
-            alert('PDF export is not available in this sandboxed environment. Please use Ctrl+P and select "Save as PDF" instead.');
-            
-            // In a real website, this code would work:
-            /*
-            // Include jsPDF library first: <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-            // Include html2canvas: <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-            
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            
-            const pages = document.querySelectorAll('.page');
-            
-            pages.forEach((page, index) => {
-                if (index > 0) pdf.addPage();
+        async function exportToPDF() {
+            try {
+                // Show loading state
+                const btn = document.querySelector('.pdf-export-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '⏳ Generating PDF...';
+                btn.disabled = true;
+                btn.style.pointerEvents = 'none';
                 
-                html2canvas(page, {
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true
-                }).then(canvas => {
-                    const imgData = canvas.toDataURL('image/png');
-                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
+                // Small delay to allow UI update
+                await new Promise(resolve => setTimeout(resolve, 100));
+                
+                // Import jsPDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Get all pages
+                const pages = document.querySelectorAll('.page');
+                
+                for (let i = 0; i < pages.length; i++) {
+                    const page = pages[i];
                     
-                    if (index === pages.length - 1) {
-                        pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
+                    // Create canvas from page
+                    const canvas = await html2canvas(page, {
+                        scale: 2,
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: '#ffffff',
+                        width: page.offsetWidth,
+                        height: page.offsetHeight,
+                        logging: false,
+                        onclone: function(clonedDoc) {
+                            // Hide export button in cloned document
+                            const clonedBtn = clonedDoc.querySelector('.pdf-export-btn');
+                            if (clonedBtn) {
+                                clonedBtn.style.display = 'none';
+                            }
+                        }
+                    });
+                    
+                    // Convert canvas to image
+                    const imgData = canvas.toDataURL('image/png', 1.0);
+                    
+                    // Add page to PDF (except for first page)
+                    if (i > 0) {
+                        pdf.addPage();
                     }
-                });
-            });
-            */
-        }
-        
-        // Auto-hide instructions after 15 seconds
-        setTimeout(() => {
-            const instructions = document.getElementById('instructions');
-            if (instructions) {
-                instructions.style.opacity = '0.8';
+                    
+                    // Add image to PDF (A4 size: 210 x 297 mm)
+                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
+                }
+                
+                // Save the PDF
+                pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try refreshing the page and try again.');
+            } finally {
+                // Restore button
+                const btn = document.querySelector('.pdf-export-btn');
+                btn.innerHTML = '📄 Export PDF';
+                btn.disabled = false;
+                btn.style.pointerEvents = 'auto';
             }
-        }, 15000);
+        }
     </script>
 </body>
 </html>
