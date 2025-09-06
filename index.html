@@ -747,7 +747,7 @@
                         <strong>Journal:</strong> Journal of Applied Science and Technology Trends<br>
                         <strong>Volume:</strong> 1 | <strong>Issue:</strong> 3 | <strong>Pages:</strong> 78-91 | <strong>Year:</strong> 2020<br>
                         <strong>Publisher:</strong> IP Academia | <strong>DOI:</strong> https://doi.org/10.38094/jastt1328<br>
-                        <strong>Impact:</strong> Comprehensive analysis of segmentation techniques improving breast cancer detection accuracy by 18%
+                        <strong>Impact:</strong> Comprehensive review and analysis of existing segmentation techniques for breast cancer ultrasound imaging
                     </div>
                 </div>
             </div>
@@ -762,10 +762,8 @@
                             <span class="skill-item">Medical Image Processing</span>
                             <span class="skill-item">Network Infrastructure Design</span>
                             <span class="skill-item">Cybersecurity Implementation</span>
-                            <span class="skill-item">Cloud Architecture (AWS, Azure)</span>
                             <span class="skill-item">Mobile Application Development</span>
                             <span class="skill-item">Full-Stack Web Development</span>
-                            <span class="skill-item">DevOps & CI/CD Pipelines</span>
                             <span class="skill-item">Research & Development</span>
                         </div>
                     </div>
@@ -849,12 +847,12 @@
                 // Show loading state
                 const btn = document.querySelector('.pdf-export-btn');
                 const originalText = btn.innerHTML;
-                btn.innerHTML = '⏳ Generating PDF...';
+                btn.innerHTML = '⏳ Generating High-Quality PDF...';
                 btn.disabled = true;
                 btn.style.pointerEvents = 'none';
                 
-                // Small delay to allow UI update
-                await new Promise(resolve => setTimeout(resolve, 100));
+                // Extended delay for high-quality processing
+                await new Promise(resolve => setTimeout(resolve, 200));
                 
                 // Import jsPDF
                 const { jsPDF } = window.jspdf;
@@ -866,9 +864,9 @@
                 for (let i = 0; i < pages.length; i++) {
                     const page = pages[i];
                     
-                    // Create high-quality canvas with optimized settings
+                    // Create ultra-high-quality canvas
                     const canvas = await html2canvas(page, {
-                        scale: 3, // Reduced from 4 to 3 for better compatibility
+                        scale: 4, // Maximum scale for ultra-sharp quality
                         useCORS: true,
                         allowTaint: true,
                         backgroundColor: '#ffffff',
@@ -876,7 +874,9 @@
                         height: page.offsetHeight,
                         logging: false,
                         removeContainer: true,
-                        imageTimeout: 15000, // Increased timeout
+                        imageTimeout: 30000, // Extended timeout for high quality
+                        foreignObjectRendering: true, // Better text rendering
+                        letterRendering: true, // Improved letter rendering
                         onclone: function(clonedDoc) {
                             // Hide export button in cloned document
                             const clonedBtn = clonedDoc.querySelector('.pdf-export-btn');
@@ -884,43 +884,55 @@
                                 clonedBtn.style.display = 'none';
                             }
                             
-                            // Ensure all elements are visible
+                            // Optimize all text for maximum clarity
                             const allElements = clonedDoc.querySelectorAll('*');
                             allElements.forEach(el => {
+                                // Ensure visibility
                                 if (el.style.visibility === 'hidden') {
                                     el.style.visibility = 'visible';
                                 }
                                 if (el.style.display === 'none' && !el.classList.contains('pdf-export-btn')) {
                                     el.style.display = 'block';
                                 }
+                                
+                                // Enhance text rendering
+                                el.style.textRendering = 'optimizeLegibility';
+                                el.style.fontSmooth = 'always';
+                                el.style.webkitFontSmoothing = 'antialiased';
+                                el.style.mozOsxFontSmoothing = 'grayscale';
+                                
+                                // Force high-quality fonts
+                                if (el.style.fontFamily) {
+                                    el.style.fontFamily = 'Arial, Helvetica, sans-serif';
+                                }
                             });
                         }
                     });
                     
-                    // Check if canvas was created successfully
+                    // Validate canvas quality
                     if (!canvas || canvas.width === 0 || canvas.height === 0) {
-                        throw new Error('Failed to create canvas from page');
+                        throw new Error('Failed to create high-quality canvas from page');
                     }
                     
-                    // Convert canvas to high-quality image
-                    const imgData = canvas.toDataURL('image/jpeg', 0.95); // Using JPEG with high quality
+                    // Convert to maximum quality PNG (lossless)
+                    const imgData = canvas.toDataURL('image/png', 1.0);
                     
-                    // Add page to PDF (except for first page)
+                    // Add page to PDF
                     if (i > 0) {
                         pdf.addPage();
                     }
                     
-                    // Add image to PDF
-                    pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
+                    // Add image with no compression for maximum quality
+                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297, undefined, 'NONE');
                 }
                 
-                // Save the PDF
+                // Save PDF with maximum quality settings
                 pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
                 
             } catch (error) {
-                console.error('Error generating PDF:', error);
+                console.error('High-quality PDF generation failed:', error);
                 
-                // Fallback to lower quality if high quality fails
+                // Fallback to medium-high quality
                 try {
                     const { jsPDF } = window.jspdf;
                     const pdf = new jsPDF('p', 'mm', 'a4');
@@ -929,9 +941,9 @@
                     for (let i = 0; i < pages.length; i++) {
                         const page = pages[i];
                         
-                        // Fallback with lower settings
+                        // Medium-high quality fallback
                         const canvas = await html2canvas(page, {
-                            scale: 2,
+                            scale: 3,
                             useCORS: true,
                             allowTaint: true,
                             backgroundColor: '#ffffff',
@@ -955,7 +967,7 @@
                     
                     pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
                 } catch (fallbackError) {
-                    alert('Error generating PDF. Please try refreshing the page and try again.');
+                    alert('Unable to generate high-quality PDF. Please try refreshing the page.');
                 }
             } finally {
                 // Restore button
