@@ -863,17 +863,17 @@
                 for (let i = 0; i < pages.length; i++) {
                     const page = pages[i];
                     
-                    // Create high-resolution canvas from page
+                    // Create high-quality canvas with optimized settings
                     const canvas = await html2canvas(page, {
-                        scale: 4, // Increased from 2 to 4 for much higher quality
+                        scale: 3, // Reduced from 4 to 3 for better compatibility
                         useCORS: true,
                         allowTaint: true,
                         backgroundColor: '#ffffff',
                         width: page.offsetWidth,
                         height: page.offsetHeight,
                         logging: false,
-                        dpi: 300, // High DPI for print quality
-                        foreignObjectRendering: true, // Better text rendering
+                        removeContainer: true,
+                        imageTimeout: 15000, // Increased timeout
                         onclone: function(clonedDoc) {
                             // Hide export button in cloned document
                             const clonedBtn = clonedDoc.querySelector('.pdf-export-btn');
@@ -881,34 +881,79 @@
                                 clonedBtn.style.display = 'none';
                             }
                             
-                            // Improve text rendering in clone
-                            const allText = clonedDoc.querySelectorAll('*');
-                            allText.forEach(el => {
-                                el.style.textRendering = 'optimizeLegibility';
-                                el.style.fontSmooth = 'always';
-                                el.style.webkitFontSmoothing = 'antialiased';
+                            // Ensure all elements are visible
+                            const allElements = clonedDoc.querySelectorAll('*');
+                            allElements.forEach(el => {
+                                if (el.style.visibility === 'hidden') {
+                                    el.style.visibility = 'visible';
+                                }
+                                if (el.style.display === 'none' && !el.classList.contains('pdf-export-btn')) {
+                                    el.style.display = 'block';
+                                }
                             });
                         }
                     });
                     
+                    // Check if canvas was created successfully
+                    if (!canvas || canvas.width === 0 || canvas.height === 0) {
+                        throw new Error('Failed to create canvas from page');
+                    }
+                    
                     // Convert canvas to high-quality image
-                    const imgData = canvas.toDataURL('image/png', 1.0); // Maximum quality
+                    const imgData = canvas.toDataURL('image/jpeg', 0.95); // Using JPEG with high quality
                     
                     // Add page to PDF (except for first page)
                     if (i > 0) {
                         pdf.addPage();
                     }
                     
-                    // Add image to PDF with compression settings for quality
-                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297, undefined, 'FAST');
+                    // Add image to PDF
+                    pdf.addImage(imgData, 'JPEG', 0, 0, 210, 297);
                 }
                 
-                // Save the PDF with high quality settings
-                pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf', { compress: false });
+                // Save the PDF
+                pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
                 
             } catch (error) {
                 console.error('Error generating PDF:', error);
-                alert('Error generating PDF. Please try refreshing the page and try again.');
+                
+                // Fallback to lower quality if high quality fails
+                try {
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const pages = document.querySelectorAll('.page');
+                    
+                    for (let i = 0; i < pages.length; i++) {
+                        const page = pages[i];
+                        
+                        // Fallback with lower settings
+                        const canvas = await html2canvas(page, {
+                            scale: 2,
+                            useCORS: true,
+                            allowTaint: true,
+                            backgroundColor: '#ffffff',
+                            logging: false,
+                            onclone: function(clonedDoc) {
+                                const clonedBtn = clonedDoc.querySelector('.pdf-export-btn');
+                                if (clonedBtn) {
+                                    clonedBtn.style.display = 'none';
+                                }
+                            }
+                        });
+                        
+                        const imgData = canvas.toDataURL('image/png', 1.0);
+                        
+                        if (i > 0) {
+                            pdf.addPage();
+                        }
+                        
+                        pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
+                    }
+                    
+                    pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
+                } catch (fallbackError) {
+                    alert('Error generating PDF. Please try refreshing the page and try again.');
+                }
             } finally {
                 // Restore button
                 const btn = document.querySelector('.pdf-export-btn');
