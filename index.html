@@ -863,38 +863,48 @@
                 for (let i = 0; i < pages.length; i++) {
                     const page = pages[i];
                     
-                    // Create canvas from page
+                    // Create high-resolution canvas from page
                     const canvas = await html2canvas(page, {
-                        scale: 2,
+                        scale: 4, // Increased from 2 to 4 for much higher quality
                         useCORS: true,
                         allowTaint: true,
                         backgroundColor: '#ffffff',
                         width: page.offsetWidth,
                         height: page.offsetHeight,
                         logging: false,
+                        dpi: 300, // High DPI for print quality
+                        foreignObjectRendering: true, // Better text rendering
                         onclone: function(clonedDoc) {
                             // Hide export button in cloned document
                             const clonedBtn = clonedDoc.querySelector('.pdf-export-btn');
                             if (clonedBtn) {
                                 clonedBtn.style.display = 'none';
                             }
+                            
+                            // Improve text rendering in clone
+                            const allText = clonedDoc.querySelectorAll('*');
+                            allText.forEach(el => {
+                                el.style.textRendering = 'optimizeLegibility';
+                                el.style.fontSmooth = 'always';
+                                el.style.webkitFontSmoothing = 'antialiased';
+                            });
                         }
                     });
                     
-                    // Convert canvas to image
-                    const imgData = canvas.toDataURL('image/png', 1.0);
+                    // Convert canvas to high-quality image
+                    const imgData = canvas.toDataURL('image/png', 1.0); // Maximum quality
                     
                     // Add page to PDF (except for first page)
                     if (i > 0) {
                         pdf.addPage();
                     }
                     
-                    // Add image to PDF (A4 size: 210 x 297 mm)
-                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
+                    // Add image to PDF with compression settings for quality
+                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297, undefined, 'FAST');
                 }
                 
-                // Save the PDF
-                pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
+                // Save the PDF with high quality settings
+                pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf', { compress: false });
                 
             } catch (error) {
                 console.error('Error generating PDF:', error);
