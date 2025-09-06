@@ -846,13 +846,12 @@
             try {
                 // Show loading state
                 const btn = document.querySelector('.pdf-export-btn');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '⏳ Generating High-Quality PDF...';
+                btn.innerHTML = '⏳ Generating PDF...';
                 btn.disabled = true;
                 btn.style.pointerEvents = 'none';
                 
-                // Extended delay for high-quality processing
-                await new Promise(resolve => setTimeout(resolve, 200));
+                // Wait for UI update
+                await new Promise(resolve => setTimeout(resolve, 100));
                 
                 // Import jsPDF
                 const { jsPDF } = window.jspdf;
@@ -860,114 +859,84 @@
                 
                 // Get all pages
                 const pages = document.querySelectorAll('.page');
+                console.log('Found pages:', pages.length);
                 
                 for (let i = 0; i < pages.length; i++) {
                     const page = pages[i];
+                    console.log(`Processing page ${i + 1}...`);
                     
-                    // Create ultra-high-quality canvas
+                    // Create canvas with reliable settings
                     const canvas = await html2canvas(page, {
-                        scale: 4, // Maximum scale for ultra-sharp quality
+                        scale: 2.5, // Optimal balance of quality and reliability
                         useCORS: true,
                         allowTaint: true,
                         backgroundColor: '#ffffff',
                         width: page.offsetWidth,
                         height: page.offsetHeight,
-                        logging: false,
-                        removeContainer: true,
-                        imageTimeout: 30000, // Extended timeout for high quality
-                        foreignObjectRendering: true, // Better text rendering
-                        letterRendering: true, // Improved letter rendering
+                        scrollX: 0,
+                        scrollY: 0,
+                        windowWidth: page.offsetWidth,
+                        windowHeight: page.offsetHeight,
+                        logging: true, // Enable logging for debugging
                         onclone: function(clonedDoc) {
-                            // Hide export button in cloned document
+                            console.log('Cloning document...');
+                            // Hide export button
                             const clonedBtn = clonedDoc.querySelector('.pdf-export-btn');
                             if (clonedBtn) {
                                 clonedBtn.style.display = 'none';
                             }
                             
-                            // Optimize all text for maximum clarity
-                            const allElements = clonedDoc.querySelectorAll('*');
-                            allElements.forEach(el => {
-                                // Ensure visibility
-                                if (el.style.visibility === 'hidden') {
+                            // Ensure all content is visible
+                            const elements = clonedDoc.querySelectorAll('*');
+                            elements.forEach(el => {
+                                if (el.style.visibility === 'hidden' && !el.classList.contains('pdf-export-btn')) {
                                     el.style.visibility = 'visible';
-                                }
-                                if (el.style.display === 'none' && !el.classList.contains('pdf-export-btn')) {
-                                    el.style.display = 'block';
-                                }
-                                
-                                // Enhance text rendering
-                                el.style.textRendering = 'optimizeLegibility';
-                                el.style.fontSmooth = 'always';
-                                el.style.webkitFontSmoothing = 'antialiased';
-                                el.style.mozOsxFontSmoothing = 'grayscale';
-                                
-                                // Force high-quality fonts
-                                if (el.style.fontFamily) {
-                                    el.style.fontFamily = 'Arial, Helvetica, sans-serif';
                                 }
                             });
                         }
                     });
                     
-                    // Validate canvas quality
+                    console.log(`Canvas created: ${canvas.width}x${canvas.height}`);
+                    
+                    // Verify canvas has content
                     if (!canvas || canvas.width === 0 || canvas.height === 0) {
-                        throw new Error('Failed to create high-quality canvas from page');
+                        throw new Error(`Canvas for page ${i + 1} is empty`);
                     }
                     
-                    // Convert to maximum quality PNG (lossless)
+                    // Convert to image with high quality
                     const imgData = canvas.toDataURL('image/png', 1.0);
+                    console.log(`Image data length: ${imgData.length}`);
+                    
+                    // Verify image data
+                    if (!imgData || imgData === 'data:,') {
+                        throw new Error(`Failed to generate image data for page ${i + 1}`);
+                    }
                     
                     // Add page to PDF
                     if (i > 0) {
                         pdf.addPage();
                     }
                     
-                    // Add image with no compression for maximum quality
-                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297, undefined, 'NONE');
+                    // Add image to PDF
+                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
+                    console.log(`Page ${i + 1} added to PDF`);
                 }
                 
-                // Save PDF with maximum quality settings
+                // Save the PDF
+                console.log('Saving PDF...');
                 pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
+                console.log('PDF saved successfully');
                 
             } catch (error) {
-                console.error('High-quality PDF generation failed:', error);
+                console.error('PDF generation error:', error);
                 
-                // Fallback to medium-high quality
+                // Simple fallback approach
                 try {
-                    const { jsPDF } = window.jspdf;
-                    const pdf = new jsPDF('p', 'mm', 'a4');
-                    const pages = document.querySelectorAll('.page');
-                    
-                    for (let i = 0; i < pages.length; i++) {
-                        const page = pages[i];
-                        
-                        // Medium-high quality fallback
-                        const canvas = await html2canvas(page, {
-                            scale: 3,
-                            useCORS: true,
-                            allowTaint: true,
-                            backgroundColor: '#ffffff',
-                            logging: false,
-                            onclone: function(clonedDoc) {
-                                const clonedBtn = clonedDoc.querySelector('.pdf-export-btn');
-                                if (clonedBtn) {
-                                    clonedBtn.style.display = 'none';
-                                }
-                            }
-                        });
-                        
-                        const imgData = canvas.toDataURL('image/png', 1.0);
-                        
-                        if (i > 0) {
-                            pdf.addPage();
-                        }
-                        
-                        pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
-                    }
-                    
-                    pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
+                    console.log('Trying fallback method...');
+                    window.print(); // Fallback to browser print
                 } catch (fallbackError) {
-                    alert('Unable to generate high-quality PDF. Please try refreshing the page.');
+                    console.error('Fallback failed:', fallbackError);
+                    alert('PDF generation failed. Please try using Ctrl+P and "Save as PDF" instead.');
                 }
             } finally {
                 // Restore button
@@ -975,6 +944,32 @@
                 btn.innerHTML = '📄 Export PDF';
                 btn.disabled = false;
                 btn.style.pointerEvents = 'auto';
+            }
+        }
+        
+        // Alternative simpler PDF function for testing
+        async function exportToPDFSimple() {
+            try {
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pages = document.querySelectorAll('.page');
+                
+                for (let i = 0; i < pages.length; i++) {
+                    const canvas = await html2canvas(pages[i], {
+                        scale: 2,
+                        backgroundColor: '#ffffff',
+                        logging: false
+                    });
+                    
+                    if (i > 0) pdf.addPage();
+                    const imgData = canvas.toDataURL('image/png');
+                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
+                }
+                
+                pdf.save('Mohammed_CV.pdf');
+            } catch (error) {
+                console.error('Simple PDF failed:', error);
+                window.print();
             }
         }
     </script>
