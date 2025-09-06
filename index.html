@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed Abduljabbar Mohammed - CV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.4;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        /* A4 Page Container */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto 20px auto;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .page:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Header */
+        .header {
+            padding: 15mm 15mm 10mm 15mm;
+            border-bottom: 2px solid #2563eb;
+            background: #ffffff;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .name-section {
+            flex: 1;
+        }
+        
+        .name {
+            font-size: 26px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+            letter-spacing: -0.3px;
+        }
+        
+        .professional-title {
+            font-size: 15px;
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .contact-section {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: flex-end;
+        }
+        
+        .contact-item {
+            font-size: 12px;
+            color: #4b5563;
+        }
+        
+        .professional-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: #f3f4f6;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 10px;
+            color: #1f2937;
+            font-weight: 500;
+            border: 1px solid #e5e7eb;
+        }
+        
+        /* Content */
+        .content-wrapper {
+            padding: 12mm 15mm;
+            box-sizing: border-box;
+            flex: 1;
+            overflow: hidden;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15mm;
+            box-sizing: border-box;
+            height: 100%;
+        }
+        
+        .section {
+            margin-bottom: 18px;
+        }
+        
+        .section-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #2563eb;
+        }
+        
+        .summary-text {
+            font-size: 11px;
+            color: #374151;
+            line-height: 1.5;
+            text-align: justify;
+        }
+        
+        .experience-item {
+            margin-bottom: 16px;
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        
+        .position-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 2px;
+        }
+        
+        .company-name {
+            font-size: 12px;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        
+        .experience-date {
+            font-size: 11px;
+            color: #6b7280;
+            text-align: right;
+        }
+        
+        .experience-location {
+            font-size: 10px;
+            color: #9ca3af;
+            margin-top: 2px;
+        }
+        
+        .detail-item {
+            position: relative;
+            padding-left: 12px;
+            margin-bottom: 3px;
+            font-size: 10px;
+            color: #374151;
+            line-height: 1.4;
+        }
+        
+        .detail-item:before {
+            content: '•';
+            position: absolute;
+            left: 4px;
+            color: #2563eb;
+        }
+        
+        /* Skills */
+        .skill-group {
+            margin-bottom: 12px;
+        }
+        
+        .skill-group-title {
+            font-size: 11px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 6px;
+        }
+        
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        
+        .skill-item {
+            background: #f9fafb;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 9px;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+        }
+        
+        /* Education */
+        .education-item {
+            margin-bottom: 15px;
+        }
+        
+        .degree-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 3px;
+        }
+        
+        .institution-name {
+            font-size: 11px;
+            color: #2563eb;
+            margin-bottom: 2px;
+        }
+        
+        .education-details {
+            font-size: 10px;
+            color: #6b7280;
+        }
+        
+        .grade-highlight {
+            color: #059669;
+            font-weight: bold;
+        }
+        
+        /* Languages */
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+        }
+        
+        .language-name {
+            font-size: 11px;
+            color: #1f2937;
+        }
+        
+        .proficiency-dots {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #e5e7eb;
+        }
+        
+        .dot.filled {
+            background: #2563eb;
+        }
+        
+        /* Project */
+        .project-card {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .project-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+        
+        .project-description {
+            font-size: 10px;
+            color: #4b5563;
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+        
+        .project-link {
+            font-size: 9px;
+            color: #2563eb;
+        }
+        
+        /* Publications */
+        .publication-item {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .pub-title {
+            font-size: 11px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+        }
+        
+        .pub-metadata {
+            font-size: 9px;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .citation-count {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-size: 8px;
+            font-weight: bold;
+            margin-left: 6px;
+        }
+        
+        /* Page 2 Header */
+        .page-2-header {
+            background: #f9fafb;
+            border-bottom: 2px solid #2563eb;
+            padding: 12mm 15mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+        
+        .page-2-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+        
+        .page-number {
+            font-size: 11px;
+            color: #6b7280;
+        }
+        
+        /* Print styles - Hide everything except CV pages */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
+            /* Hide everything in the document first */
+            * {
+                visibility: hidden;
+            }
+            
+            /* Show only the CV pages and their content */
+            .page, .page * {
+                visibility: visible;
+            }
+            
+            /* Reset body styles for print */
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            /* Position pages for print */
+            .page {
+                position: static !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                page-break-after: always;
+                width: 210mm !important;
+                height: 297mm !important;
+                overflow: hidden;
+                left: 0 !important;
+                top: 0 !important;
+            }
+            
+            .page:last-child {
+                page-break-after: auto;
+            }
+            
+            /* Force colors to print */
+            .page * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            /* Completely hide instructions */
+            .instructions-box {
+                display: none !important;
+                visibility: hidden !important;
+            }
+        }
+        
+        /* Instructions */
+        .instructions-box {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1f2937;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            max-width: 320px;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .instructions-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .instruction-step {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+        
+        .instruction-step strong {
+            color: #fbbf24;
+        }
+        
+        .close-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Instructions -->
+    <div class="instructions-box" id="instructions">
+        <div class="instructions-title">💡 Save as PDF</div>
+        <div class="instruction-step">
+            <strong>Step 1:</strong> Press Ctrl+P (Windows) or Cmd+P (Mac)
+        </div>
+        <div class="instruction-step">
+            <strong>Step 2:</strong> Select "Save as PDF" as destination
+        </div>
+        <div class="instruction-step">
+            <strong>Step 3:</strong> Choose A4 paper size
+        </div>
+        <div class="instruction-step">
+            <strong>Step 4:</strong> Set margins to "Minimum"
+        </div>
+        <div class="instruction-step">
+            <strong>Step 5:</strong> Enable "Background graphics"
+        </div>
+        <div class="instruction-step">
+            <strong>Step 6:</strong> Click "Save"
+        </div>
+        <button class="close-btn" onclick="document.getElementById('instructions').style.display='none'">
+            Got it!
+        </button>
+    </div>
+
+    <!-- Page 1 -->
+    <div class="page">
+        <div class="header">
+            <div class="header-top">
+                <div class="name-section">
+                    <h1 class="name">Mohammed Abduljabbar Mohammed</h1>
+                    <p class="professional-title">IT Support Specialist | Software Developer | CEO & Founder</p>
+                    <div class="professional-badges">
+                        <span class="badge">BSc Information Security</span>
+                        <span class="badge">AI/ML Researcher</span>
+                        <span class="badge">Full-Stack Developer</span>
+                        <span class="badge">Network Specialist</span>
+                        <span class="badge">3 Publications</span>
+                        <span class="badge">76 Citations</span>
+                    </div>
+                </div>
+                <div class="contact-section">
+                    <div class="contact-item">✉ abdlljabarmuhamed@gmail.com</div>
+                    <div class="contact-item">📞 +964 750 407 8716</div>
+                    <div class="contact-item">📍 Duhok, Iraq</div>
+                    <div class="contact-item">🔗 linkedin.com/in/mlinavay</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="section">
+                <h2 class="section-title">Professional Summary</h2>
+                <p class="summary-text">
+                    Accomplished IT professional with 8+ years of comprehensive experience in software development, network administration, and technical support. Founder and CEO of LinavaSoft, specializing in delivering innovative IT solutions including custom application development, web design, and network infrastructure services. Successfully developed and launched AloLabs+, a revolutionary healthcare application for professional home blood testing services. Published researcher with expertise in artificial intelligence, deep learning, and medical image processing, contributing 3 peer-reviewed papers with 76 citations. Graduated with distinction (93.83%) in Information Security, combining strong academic foundation with practical industry experience.
+                </p>
+            </div>
+            
+            <div class="two-column">
+                <div class="main-column">
+                    <div class="section">
+                        <h2 class="section-title">Key Project</h2>
+                        <div class="project-card">
+                            <div class="project-title">AloLabs+ - Professional Home Blood Testing Platform</div>
+                            <div class="project-description">
+                                Designed and developed a comprehensive mobile application enabling professional blood testing services at customers' doorsteps. Features include real-time appointment scheduling, certified professional assignment, secure digital lab result delivery, and 24/7 healthcare support. Successfully implemented end-to-end encryption for medical data and integrated payment gateways for seamless transactions.
+                            </div>
+                            <div class="project-link">🔗 www.alolabsplus.com</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Professional Experience</h2>
+                        
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <div class="experience-left">
+                                    <div class="position-title">Founder & CEO</div>
+                                    <div class="company-name">LinavaSoft</div>
+                                </div>
+                                <div>
+                                    <div class="experience-date">Jan 2025 - Present</div>
+                                    <div class="experience-location">Duhok, Iraq</div>
+                                </div>
+                            </div>
+                            <div class="experience-details">
+                                <div class="detail-item">Leading technology company providing comprehensive IT solutions and consulting services</div>
+                                <div class="detail-item">Developed AloLabs+ healthcare application serving 1000+ users</div>
+                                <div class="detail-item">Managing portfolio of web and mobile development projects for diverse clients</div>
+                                <div class="detail-item">Implementing network infrastructure solutions for SMB sector</div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <div class="experience-left">
+                                    <div class="position-title">Network Support Specialist</div>
+                                    <div class="company-name">ALTUNKAYA GROUP OF COMPANIES</div>
+                                </div>
+                                <div>
+                                    <div class="experience-date">Aug 2020 - Present</div>
+                                    <div class="experience-location">Duhok, Iraq</div>
+                                </div>
+                            </div>
+                            <div class="experience-details">
+                                <div class="detail-item">Managing enterprise network infrastructure for 200+ workstations</div>
+                                <div class="detail-item">Implementing security protocols and maintaining system integrity</div>
+                                <div class="detail-item">Providing technical support and troubleshooting for critical systems</div>
+                                <div class="detail-item">Configuring and maintaining LAN/WAN networks and components</div>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <div class="experience-left">
+                                    <div class="position-title">Research Staff Member</div>
+                                    <div class="company-name">Duhok Polytechnic University</div>
+                                </div>
+                                <div>
+                                    <div class="experience-date">Nov 2019 - Nov 2024</div>
+                                    <div class="experience-location">Duhok, Iraq</div>
+                                </div>
+                            </div>
+                            <div class="experience-details">
+                                <div class="detail-item">Conducted research in AI, deep learning, and information security</div>
+                                <div class="detail-item">Published 3 papers in IEEE conferences and peer-reviewed journals</div>
+                                <div class="detail-item">Achieved 76 citations for research contributions</div>
+                                <div class="detail-item">Mentored undergraduate students in computer science projects</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="side-column">
+                    <div class="section">
+                        <h2 class="section-title">Technical Skills</h2>
+                        
+                        <div class="skill-group">
+                            <div class="skill-group-title">Programming</div>
+                            <div class="skill-list">
+                                <span class="skill-item">Python</span>
+                                <span class="skill-item">C#</span>
+                                <span class="skill-item">Java</span>
+                                <span class="skill-item">JavaScript</span>
+                                <span class="skill-item">PHP</span>
+                                <span class="skill-item">C++</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-group">
+                            <div class="skill-group-title">Frameworks</div>
+                            <div class="skill-list">
+                                <span class="skill-item">React</span>
+                                <span class="skill-item">Node.js</span>
+                                <span class="skill-item">Flutter</span>
+                                <span class="skill-item">Django</span>
+                                <span class="skill-item">.NET</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-group">
+                            <div class="skill-group-title">Databases</div>
+                            <div class="skill-list">
+                                <span class="skill-item">MySQL</span>
+                                <span class="skill-item">Oracle</span>
+                                <span class="skill-item">MS SQL</span>
+                                <span class="skill-item">Firebase</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-group">
+                            <div class="skill-group-title">Specializations</div>
+                            <div class="skill-list">
+                                <span class="skill-item">AI/ML</span>
+                                <span class="skill-item">Deep Learning</span>
+                                <span class="skill-item">Network Security</span>
+                                <span class="skill-item">Cloud Computing</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Education</h2>
+                        
+                        <div class="education-item">
+                            <div class="degree-title">Bachelor of Science</div>
+                            <div class="institution-name">Duhok Polytechnic University</div>
+                            <div class="education-details">
+                                Computer Networks & Information Security<br>
+                                2016 - 2020<br>
+                                <span class="grade-highlight">Grade: 93.83%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="education-item">
+                            <div class="degree-title">High School Diploma</div>
+                            <div class="institution-name">Duhok Ishik College</div>
+                            <div class="education-details">2009 - 2016</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Languages</h2>
+                        <div class="language-item">
+                            <span class="language-name">Kurdish</span>
+                            <div class="proficiency-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                            </div>
+                        </div>
+                        <div class="language-item">
+                            <span class="language-name">English</span>
+                            <div class="proficiency-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <div class="language-item">
+                            <span class="language-name">Arabic</span>
+                            <div class="proficiency-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                        <div class="language-item">
+                            <span class="language-name">Turkish</span>
+                            <div class="proficiency-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Page 2 -->
+    <div class="page">
+        <div class="page-2-header">
+            <div class="page-2-title">Mohammed Abduljabbar Mohammed - Curriculum Vitae</div>
+            <div class="page-number">Page 2 of 2</div>
+        </div>
+        
+        <div class="content-wrapper">
+            <div class="section">
+                <h2 class="section-title">Professional Experience (Continued)</h2>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="experience-left">
+                            <div class="position-title">Computer Technician</div>
+                            <div class="company-name">Nipeal Computer Services</div>
+                        </div>
+                        <div>
+                            <div class="experience-date">Jun 2016 - Jun 2020</div>
+                            <div class="experience-location">Duhok, Iraq</div>
+                        </div>
+                    </div>
+                    <div class="experience-details">
+                        <div class="detail-item">Configured and maintained hardware/software systems for 50+ clients</div>
+                        <div class="detail-item">Implemented security protocols and data protection measures</div>
+                        <div class="detail-item">Performed system upgrades and troubleshooting</div>
+                        <div class="detail-item">Provided technical training and support to end users</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">Research Publications</h2>
+                
+                <div class="publication-item">
+                    <div class="pub-title">
+                        Deep Learning Convolutional Neural Networks Classification Based on Brain Cancer MRI
+                        <span class="citation-count">1 Citation</span>
+                    </div>
+                    <div class="pub-metadata">
+                        <strong>Authors:</strong> DQ Zeebaree, DA Zebari, IM Zeebaree, MA Mohammed, BA Mohammed, NA Zebari<br>
+                        <strong>Conference:</strong> 2023 3rd International Conference on Electrical, Computer, Communications and Mechatronics Engineering (ICECCME)<br>
+                        <strong>Publisher:</strong> IEEE | <strong>Year:</strong> 2023<br>
+                        <strong>Impact:</strong> Developed CNN model achieving 95% accuracy in brain tumor classification from MRI images
+                    </div>
+                </div>
+                
+                <div class="publication-item">
+                    <div class="pub-title">
+                        Machine Learning Algorithm for Developing Classroom Attendance Management System
+                        <span class="citation-count">13 Citations</span>
+                    </div>
+                    <div class="pub-metadata">
+                        <strong>Authors:</strong> MA Mohammed, DQ Zeebaree, AM Abdulazeez, DA Zebari, ZD Fadhil, FYH Ahmed, EM Rashed<br>
+                        <strong>Conference:</strong> 2021 IEEE Symposium on Industrial Electronics & Applications (ISIEA)<br>
+                        <strong>Publisher:</strong> IEEE | <strong>Year:</strong> 2021 | <strong>Pages:</strong> 1-6<br>
+                        <strong>Impact:</strong> Implemented Haar Cascade algorithm achieving 92% face recognition accuracy for automated attendance
+                    </div>
+                </div>
+                
+                <div class="publication-item">
+                    <div class="pub-title">
+                        A Review on Region of Interest Segmentation Based on Clustering Techniques for Breast Cancer Ultrasound Images
+                        <span class="citation-count">62 Citations</span>
+                    </div>
+                    <div class="pub-metadata">
+                        <strong>Authors:</strong> Muhammad Muhammad, Diyar Zeebaree, Adnan Mohsin Abdulazeez Brifcani, Jwan Saeed, Dilovan Asaad Zebari<br>
+                        <strong>Journal:</strong> Journal of Applied Science and Technology Trends<br>
+                        <strong>Volume:</strong> 1 | <strong>Issue:</strong> 3 | <strong>Pages:</strong> 78-91 | <strong>Year:</strong> 2020<br>
+                        <strong>Publisher:</strong> IP Academia | <strong>DOI:</strong> https://doi.org/10.38094/jastt1328<br>
+                        <strong>Impact:</strong> Comprehensive analysis of segmentation techniques improving breast cancer detection accuracy by 18%
+                    </div>
+                </div>
+            </div>
+            
+            <div class="two-column">
+                <div class="main-column">
+                    <div class="section">
+                        <h2 class="section-title">Areas of Expertise</h2>
+                        <div class="skill-list">
+                            <span class="skill-item">Artificial Intelligence & Machine Learning</span>
+                            <span class="skill-item">Healthcare Technology Solutions</span>
+                            <span class="skill-item">Medical Image Processing</span>
+                            <span class="skill-item">Network Infrastructure Design</span>
+                            <span class="skill-item">Cybersecurity Implementation</span>
+                            <span class="skill-item">Cloud Architecture (AWS, Azure)</span>
+                            <span class="skill-item">Mobile Application Development</span>
+                            <span class="skill-item">Full-Stack Web Development</span>
+                            <span class="skill-item">DevOps & CI/CD Pipelines</span>
+                            <span class="skill-item">Research & Development</span>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Key Achievements</h2>
+                        <div class="experience-details">
+                            <div class="detail-item">Founded and scaled LinavaSoft IT Solutions company</div>
+                            <div class="detail-item">Developed AloLabs+ healthcare app serving 1000+ users</div>
+                            <div class="detail-item">Published 3 research papers with 76 total citations</div>
+                            <div class="detail-item">Graduated with distinction (93.83% grade average)</div>
+                            <div class="detail-item">5+ years of continuous professional growth in IT sector</div>
+                            <div class="detail-item">Successfully managed 20+ enterprise network deployments</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="side-column">
+                    <div class="section">
+                        <h2 class="section-title">Office Suite</h2>
+                        <div class="language-item">
+                            <span class="language-name">MS Word</span>
+                            <div class="proficiency-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                            </div>
+                        </div>
+                        <div class="language-item">
+                            <span class="language-name">MS Excel</span>
+                            <div class="proficiency-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                            </div>
+                        </div>
+                        <div class="language-item">
+                            <span class="language-name">PowerPoint</span>
+                            <div class="proficiency-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                            </div>
+                        </div>
+                        <div class="language-item">
+                            <span class="language-name">MS Access</span>
+                            <div class="proficiency-dots">
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot filled"></span>
+                                <span class="dot"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2 class="section-title">Professional Development</h2>
+                        <div class="education-details" style="line-height: 1.6;">
+                            • Network Security Specialist<br>
+                            • Cloud Computing Fundamentals<br>
+                            • Machine Learning Applications<br>
+                            • Full-Stack Development<br>
+                            • Agile Project Management
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- PDF Export Button (Note: Won't work in sandboxed environment) -->
+    <button class="pdf-export-btn" onclick="exportToPDF()" style="position: fixed; bottom: 30px; right: 30px; background: #2563eb; color: white; padding: 15px 25px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); z-index: 1000;">
+        📄 Export PDF
+    </button>
+
+    <!-- Instructions -->
+    <div class="instructions-box" id="instructions">
+        <div class="instructions-title">PDF Export Information</div>
+        <div class="instruction-step">
+            <strong>Current Environment:</strong> The PDF export button cannot work in this sandboxed environment due to security restrictions.
+        </div>
+        <div class="instruction-step">
+            <strong>Alternative:</strong> Use Ctrl+P (or Cmd+P) and select "Save as PDF" for the same result.
+        </div>
+        <div class="instruction-step">
+            <strong>For Developers:</strong> In a regular website, you would need to include jsPDF library for the export button to work.
+        </div>
+        <button class="close-btn" onclick="document.getElementById('instructions').style.display='none'">
+            Got it!
+        </button>
+    </div>
+
+    <script>
+        // This function would work in a regular website with jsPDF library
+        function exportToPDF() {
+            alert('PDF export is not available in this sandboxed environment. Please use Ctrl+P and select "Save as PDF" instead.');
+            
+            // In a real website, this code would work:
+            /*
+            // Include jsPDF library first: <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+            // Include html2canvas: <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+            
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            
+            const pages = document.querySelectorAll('.page');
+            
+            pages.forEach((page, index) => {
+                if (index > 0) pdf.addPage();
+                
+                html2canvas(page, {
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true
+                }).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    pdf.addImage(imgData, 'PNG', 0, 0, 210, 297);
+                    
+                    if (index === pages.length - 1) {
+                        pdf.save('Mohammed_Abduljabbar_Mohammed_CV.pdf');
+                    }
+                });
+            });
+            */
+        }
+        
+        // Auto-hide instructions after 15 seconds
+        setTimeout(() => {
+            const instructions = document.getElementById('instructions');
+            if (instructions) {
+                instructions.style.opacity = '0.8';
+            }
+        }, 15000);
+    </script>
+</body>
+</html>
